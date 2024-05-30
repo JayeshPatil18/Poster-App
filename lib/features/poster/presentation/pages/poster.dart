@@ -9,11 +9,13 @@ import 'package:poster_app/features/poster/presentation/widgets/button.dart';
 import 'package:screenshot/screenshot.dart';
 
 class GeneratePosterScreen extends StatefulWidget {
+  final File? file;
   final String name;
   final String phoneNo;
   final String imageUrl;
 
   GeneratePosterScreen({
+    required this.file,
     required this.name,
     required this.phoneNo,
     required this.imageUrl,
@@ -24,6 +26,10 @@ class GeneratePosterScreen extends StatefulWidget {
 }
 
 class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
+
+  Offset _offsetPhoto = Offset(0, 0); // Offset(((MediaQuery.of(context).size.width) / 2) - 40, ((MediaQuery.of(context).size.width) / 10));
+  Offset _offsetText = Offset(0, 0); // Offset(((MediaQuery.of(context).size.width) / 2) - 35, ((MediaQuery.of(context).size.width) / 3));
+
   File? _image;
   final ScreenshotController _screenshotController = ScreenshotController();
 
@@ -84,67 +90,98 @@ class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Generate Poster'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _image != null
-                  ? Screenshot(
-                controller: _screenshotController,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Image.file(_image!),
-                    Positioned(
-                      bottom: 20,
-                      child: Column(
-                        children: [
-                          Text(
-                            widget.name,
-                            style: TextStyle(
-                              fontFamily: 'DancingScript',
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            widget.phoneNo,
-                            style: TextStyle(
-                              fontFamily: 'EBGaramond',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-                  : CircularProgressIndicator(),
-              SizedBox(height: 20),
-              _image != null
-                  ? Container(
-                margin: EdgeInsets.only(left: 40, right: 40, top: 50),
-                height: 60,
-                width: double.infinity,
-                    child: CustomButton(
-                        label: 'Download Poster',
-                        onPress: () { _saveImage(); },
-                                  ),
-                  )
-                  : Container(),
-            ],
+
+    return Builder(
+      builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Generate Poster'),
           ),
-        ),
-      ),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _image != null
+                      ? Screenshot(
+                    controller: _screenshotController,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.file(_image!),
+                        Positioned(
+                          left: _offsetText.dx,
+                          top: _offsetText.dy,
+                          bottom: 20,
+                          child: GestureDetector(
+                            onPanUpdate: (details) {
+                              setState(() {
+                                _offsetText += details.delta;
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                Text(
+                                  widget.name,
+                                  style: TextStyle(
+                                    fontFamily: 'DancingScript',
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  widget.phoneNo,
+                                  style: TextStyle(
+                                    fontFamily: 'EBGaramond',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: _offsetPhoto.dx,
+                          top: _offsetPhoto.dy,
+                          child: GestureDetector(
+                            onPanUpdate: (details) {
+                              setState(() {
+                                _offsetPhoto += details.delta;
+                              });
+                            },
+                            child: widget.file != null
+                                ? CircleAvatar(
+                                                          backgroundImage:
+                                                          FileImage(widget.file!),
+                                                          radius: 40,
+                                                        ) : SizedBox(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                      : CircularProgressIndicator(),
+                  SizedBox(height: 20),
+                  _image != null
+                      ? Container(
+                    margin: EdgeInsets.only(left: 40, right: 40, top: 50),
+                    height: 60,
+                    width: double.infinity,
+                        child: CustomButton(
+                            label: 'Download Poster',
+                            onPress: () { _saveImage(); },
+                                      ),
+                      )
+                      : Container(),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
     );
   }
 }
