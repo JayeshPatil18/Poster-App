@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:poster_app/features/poster/presentation/pages/poster.dart';
 import 'package:poster_app/utils/fonts.dart';
 
@@ -46,6 +49,56 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  File? _selectedImage;
+  int hasImagePicked = -1;
+
+  Future pickImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
+
+    if (image == null) return;
+
+    setState(() {
+      hasImagePicked = 1;
+      _selectedImage = File(image.path);
+    });
+  }
+
+  void pickSource() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(10),
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: Icon(Icons.photo),
+                title: Text('Gallary'),
+                onTap: () {
+                  pickImage(ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10, right: 10),
+                color: Colors.grey,
+                height: 1,
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_camera),
+                title: Text('Camera'),
+                onTap: () {
+                  pickImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,11 +128,11 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.grey,
                       ),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(13),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                               color: Colors.black, width: boarderWidth)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(13),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                               color: Colors.black, width: boarderWidth))),
                 ),
@@ -113,14 +166,31 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.grey,
                       ),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(13),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                               color: Colors.black, width: boarderWidth)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(13),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                               color: Colors.black, width: boarderWidth))),
                 ),
+                SizedBox(height: 30),
+                Container(
+                    height: 60,
+                    width: double.infinity,
+                    margin: EdgeInsets.only(bottom: 60),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                      child: OutlinedButton(
+                        onPressed: () {
+                          pickSource();
+                        },
+                        child: Text('Upload Photo', style: TextStyle(color: hasImagePicked == 1 ? Colors.green : Colors.black)),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(width: 1.6, color: hasImagePicked == 1 ? Colors.green : Colors.black),
+                        ),
+                      ),
+                    )),
                 SizedBox(
                   height: 40,
                 ),

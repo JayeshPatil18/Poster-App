@@ -107,14 +107,16 @@ class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
                           Text(
                             widget.name,
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                              fontFamily: 'DancingScript',
+                              fontSize: 24,
+                              fontWeight: FontWeight.w900,
                               color: Colors.white,
                             ),
                           ),
                           Text(
                             widget.phoneNo,
                             style: TextStyle(
+                              fontFamily: 'EBGaramond',
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,

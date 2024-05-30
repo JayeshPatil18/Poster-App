@@ -17,11 +17,10 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPress,
       style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
+          backgroundColor: color,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(13))),
+              borderRadius: BorderRadius.circular(30))),
       child: Text(label, style: TextStyle(
-          fontWeight: FontWeight.bold,
           color: Colors.white,
           fontSize: 18)),
     );
