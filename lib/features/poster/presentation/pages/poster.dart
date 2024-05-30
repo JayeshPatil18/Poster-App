@@ -124,7 +124,7 @@ class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        Image.file(_image!),
+                        Image.network(widget.imageUrl),
                         Positioned(
                           left: _offsetText.dx,
                           top: _offsetText.dy,

@@ -4,6 +4,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:poster_app/features/poster/presentation/pages/poster.dart';
+import 'package:poster_app/features/poster/presentation/pages/template.dart';
 import 'package:poster_app/utils/fonts.dart';
 
 import '../../../../utils/methods.dart';
@@ -18,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  var boarderWidth = 1.4;
+  var boarderWidth = 1.5;
 
   final nameController = TextEditingController();
   final phoneNoController = TextEditingController();
@@ -31,17 +32,17 @@ class _HomePageState extends State<HomePage> {
     switch (index) {
 
       case 0:
-        // if (input == null || input.isEmpty) {
-        //   return 'Field empty';
-        // }
+        if (input == null || input.isEmpty) {
+          return 'Field empty';
+        }
         break;
 
       case 1:
-        // if (input == null || input.isEmpty) {
-        //   return 'Field empty';
-        // } else if (!isNumeric(input) || input.length != 10) {
-        //   return 'Invalid phone number';
-        // }
+        if (input == null || input.isEmpty) {
+          return 'Field empty';
+        } else if (!isNumeric(input) || input.length != 10) {
+          return 'Invalid phone number';
+        }
         break;
 
       default:
@@ -144,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                   cursorColor: Colors.grey,
                   controller: phoneNoController,
                   validator: ((value) {
-                    return _validateInput(value, 0);
+                    return _validateInput(value, 1);
                   }),
                   keyboardType: TextInputType.number,
                   maxLength: 10,
@@ -178,7 +179,6 @@ class _HomePageState extends State<HomePage> {
                 Container(
                     height: 60,
                     width: double.infinity,
-                    margin: EdgeInsets.only(bottom: 60),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                       child: OutlinedButton(
@@ -192,12 +192,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                     )),
                 SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 Container(
                     height: 60,
                     width: double.infinity,
-                    margin: EdgeInsets.only(bottom: 60),
                     child: CustomButton(
                       label: 'Generate Poster',
                       onPress: () {
@@ -207,10 +206,9 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => GeneratePosterScreen(
+                              builder: (context) => TemplateScreen(
                                 name: nameController.text.toString().trim(),
                                 phoneNo: countryCode + phoneNoController.text.toString().trim(),
-                                imageUrl: 'https://i.pinimg.com/originals/ba/b8/42/bab84265b821d4b0d28f9ca7df82c7cf.jpg',
                                 file: _selectedImage,
 
                               ),

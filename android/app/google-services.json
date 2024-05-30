@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "968333834166",
+    "firebase_url": "https://posterapp-14ad7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "posterapp-14ad7",
+    "storage_bucket": "posterapp-14ad7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968333834166:android:e95890a59676aea4217317",
+        "android_client_info": {
+          "package_name": "com.test.poster_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANL00-QHeOTwrBDr0s99um5ovD781uk0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
