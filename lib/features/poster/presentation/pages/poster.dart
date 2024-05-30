@@ -91,9 +91,9 @@ class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
           );
         });
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Poster saved to $path')),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Poster saved to $path')),
+        // );
       }).catchError((onError) {
         print(onError);
       });
