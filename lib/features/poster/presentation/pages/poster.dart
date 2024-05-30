@@ -27,8 +27,12 @@ class GeneratePosterScreen extends StatefulWidget {
 
 class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
 
-  Offset _offsetPhoto = Offset(0, 0); // Offset(((MediaQuery.of(context).size.width) / 2) - 40, ((MediaQuery.of(context).size.width) / 10));
-  Offset _offsetText = Offset(0, 0); // Offset(((MediaQuery.of(context).size.width) / 2) - 35, ((MediaQuery.of(context).size.width) / 3));
+  // Offset _offsetPhoto = Offset(0, 0); // Offset(((MediaQuery.of(context).size.width) / 2) - 40, ((MediaQuery.of(context).size.width) / 10));
+  // Offset _offsetText = Offset(0, 0); // Offset(((MediaQuery.of(context).size.width) / 2) - 35, ((MediaQuery.of(context).size.width) / 3));
+
+  late Offset _offsetPhoto;
+  late Offset _offsetText;
+  final GlobalKey _stackKey = GlobalKey();
 
   File? _image;
   final ScreenshotController _screenshotController = ScreenshotController();
@@ -36,7 +40,19 @@ class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _calculateInitialOffsets(context);
+    });
     _loadImageFromUrl(widget.imageUrl);
+  }
+
+  void _calculateInitialOffsets(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
+    setState(() {
+      _offsetPhoto = Offset(((width) / 2) - 40, ((width) / 10));
+      _offsetText = Offset(((width) / 2) - 50, ((width) / 3));
+    });
   }
 
   Future<void> _loadImageFromUrl(String imageUrl) async {
