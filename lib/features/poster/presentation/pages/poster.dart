@@ -132,8 +132,8 @@ class _GeneratePosterScreenState extends State<GeneratePosterScreen> {
               SizedBox(height: 20),
               _image != null
                   ? Container(
-                margin: EdgeInsets.only(left: 30, right: 30, top: 50),
-                height: 50,
+                margin: EdgeInsets.only(left: 40, right: 40, top: 50),
+                height: 60,
                 width: double.infinity,
                     child: CustomButton(
                         label: 'Download Poster',

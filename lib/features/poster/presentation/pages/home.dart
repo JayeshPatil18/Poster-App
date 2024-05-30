@@ -195,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                   height: 40,
                 ),
                 Container(
-                    height: 50,
+                    height: 60,
                     width: double.infinity,
                     margin: EdgeInsets.only(bottom: 60),
                     child: CustomButton(
