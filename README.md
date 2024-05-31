@@ -1,3 +1,7 @@
+Poster App
+
+# File Structure
+
 - constants
 - features
     - authentication
