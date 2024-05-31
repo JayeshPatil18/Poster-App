@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:poster_app/features/authentication/presentation/pages/login.dart';
 
 import 'features/poster/presentation/pages/home.dart';
 
@@ -13,7 +14,8 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  static String LOGIN_KEY = 'isLoggedIn';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             subtitle2: TextStyle(fontSize: 12),
           )),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
