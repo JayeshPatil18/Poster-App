@@ -44,5 +44,5 @@ The Poster App aims to provide users with a platform to create personalized post
 
 - Clone the repository: `git clone <repository_url>`
 - Navigate to the project directory: `cd Poster-App`
-- Install dependencies: `npm install`
-- Start the application: `npm start`
+- Install dependencies: `flutter pub get`
+- Start the application: `flutter run`
