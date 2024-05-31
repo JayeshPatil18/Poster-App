@@ -1,6 +1,6 @@
-Poster App
+# Poster App
 
-# File Structure
+* File Structure
 
 - constants
 - features
